@@ -23,6 +23,15 @@ function renderTask(taskText) {
 
 function addInput(event) {
   event.preventDefault();
+
+  if (
+    tasks.some(function (task) {
+      return task.description === input.value;
+    })
+  ) {
+    alert("That is already on your list!");
+    return;
+  }
   if (input.value.trim() !== "") {
     let newTask = {
       description: input.value,
