@@ -6,7 +6,7 @@ function addInput() {
   const newTask = document.createElement("li");
   const taskText = document.createTextNode(input.value);
   newTask.appendChild(taskText);
-  list.appendChild(newTask);
+  list.appendChild(newTask).trim();
 }
 
 btnAdd.addEventListener("click", addInput);
