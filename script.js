@@ -11,8 +11,12 @@ if (storage !== null) {
 }
 
 for (task of tasks) {
+  renderTask(task.description);
+}
+
+function renderTask(taskText) {
   const newItem = document.createElement("li");
-  const itemText = document.createTextNode(task.description);
+  const itemText = document.createTextNode(taskText);
   newItem.appendChild(itemText);
   list.appendChild(newItem);
 }
@@ -20,15 +24,13 @@ for (task of tasks) {
 function addInput(event) {
   event.preventDefault();
   if (input.value.trim() !== "") {
-    const newItem = document.createElement("li");
-    const itemText = document.createTextNode(input.value);
     let newTask = {
       description: input.value,
       id: Date.now() + Math.random(),
     };
+    renderTask(input.value);
     tasks.push(newTask);
-    newItem.appendChild(itemText);
-    list.appendChild(newItem);
+
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
   input.value = "";
