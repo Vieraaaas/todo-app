@@ -26,7 +26,7 @@ function addInput(event) {
 
   if (
     tasks.some(function (task) {
-      return task.description === input.value;
+      return task.description.toLowerCase === input.value.toLowerCase;
     })
   ) {
     alert("That is already on your list!");
