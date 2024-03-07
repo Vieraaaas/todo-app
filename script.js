@@ -6,6 +6,7 @@ const storage = JSON.parse(localStorage.getItem("tasks"));
 const radioOpen = document.querySelector("#radio-open");
 const radioDone = document.querySelector("#radio-done");
 const radioAll = document.querySelector("#radio-all");
+const btnRemove = document.querySelector(".btn-remove");
 
 if (storage !== null) {
   for (storedTask of storage) {
@@ -85,6 +86,26 @@ function showAll() {
   }
 }
 
+function removeTasks(event) {
+  event.preventDefault();
+
+  if (
+    confirm(
+      "Are you sure you want to delete ALL finished tasks? No takesies-backsies!"
+    ) === true
+  ) {
+    for (let i = tasks.length - 1; i >= 0; i--) {
+      const task = tasks[i];
+      const listElement = document.querySelector(`#task${task.id}`);
+      if (task.done === true) {
+        listElement.parentNode.remove();
+        tasks.splice(i, 1);
+        storeData();
+      }
+    }
+  }
+}
+
 btnAdd.addEventListener("click", addInput);
 list.addEventListener("change", toggleDone);
 radioAll.addEventListener("click", showAll);
@@ -94,3 +115,4 @@ radioOpen.addEventListener("click", function () {
 radioDone.addEventListener("click", function () {
   filter(false);
 });
+btnRemove.addEventListener("click", removeTasks);
