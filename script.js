@@ -3,6 +3,9 @@ const input = document.querySelector(".input");
 const list = document.querySelector("ul");
 const tasks = [];
 const storage = JSON.parse(localStorage.getItem("tasks"));
+const radioOpen = document.querySelector("#radio-open");
+const radioDone = document.querySelector("#radio-done");
+const radioAll = document.querySelector("#radio-all");
 
 if (storage !== null) {
   for (storedTask of storage) {
@@ -43,7 +46,7 @@ function addInput(event) {
   if (input.value.trim() !== "") {
     let newTask = {
       description: input.value,
-      id: Date.now() + Math.random(),
+      id: Date.now(),
       done: false,
     };
     renderTask(newTask.description, newTask.id, newTask.done, newTask);
@@ -64,5 +67,30 @@ function storeData() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+function filter(status) {
+  for (task of tasks) {
+    const listElement = document.querySelector(`#task${task.id}`);
+    if (task.done === status) {
+      listElement.parentNode.style.display = "none";
+    } else {
+      listElement.parentNode.style.display = "";
+    }
+  }
+}
+
+function showAll() {
+  for (task of tasks) {
+    const listElement = document.querySelector(`#task${task.id}`);
+    listElement.parentNode.style.display = "";
+  }
+}
+
 btnAdd.addEventListener("click", addInput);
 list.addEventListener("change", toggleDone);
+radioAll.addEventListener("click", showAll);
+radioOpen.addEventListener("click", function () {
+  filter(true);
+});
+radioDone.addEventListener("click", function () {
+  filter(false);
+});
