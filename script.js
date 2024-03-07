@@ -16,13 +16,15 @@ for (task of tasks) {
 
 function renderTask(taskText, taskId, taskStatus, task) {
   const newItem = document.createElement("li");
-  const itemText = document.createTextNode(taskText);
+  const label = document.createElement("label");
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.id = "task" + taskId;
   checkbox.checked = taskStatus;
   checkbox.taskObject = task;
-  newItem.append(checkbox, itemText);
+  label.htmlFor = checkbox.id;
+  label.innerText = taskText;
+  newItem.append(checkbox, label);
   list.appendChild(newItem);
 }
 
