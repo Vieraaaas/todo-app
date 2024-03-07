@@ -47,7 +47,7 @@ function addInput(event) {
     renderTask(newTask.description, newTask.id, newTask.done, newTask);
     tasks.push(newTask);
 
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    storeData();
   }
   input.value = "";
 }
@@ -55,6 +55,10 @@ function addInput(event) {
 function toggleDone(event) {
   const checkbox = event.target.taskObject;
   checkbox.done = !checkbox.done;
+  storeData();
+}
+
+function storeData() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
