@@ -9,12 +9,12 @@ const radioAll = document.querySelector("#radio-all");
 const btnRemove = document.querySelector(".btn-remove");
 
 if (storage !== null) {
-  for (storedTask of storage) {
+  for (const storedTask of storage) {
     tasks.push(storedTask);
   }
 }
 
-for (task of tasks) {
+for (const task of tasks) {
   renderTask(task.description, task.id, task.done, task);
 }
 
@@ -69,7 +69,7 @@ function storeData() {
 }
 
 function filter(status) {
-  for (task of tasks) {
+  for (const task of tasks) {
     const listElement = document.querySelector(`#task${task.id}`);
     if (task.done === status) {
       listElement.parentNode.style.display = "none";
@@ -80,7 +80,7 @@ function filter(status) {
 }
 
 function showAll() {
-  for (task of tasks) {
+  for (const task of tasks) {
     const listElement = document.querySelector(`#task${task.id}`);
     listElement.parentNode.style.display = "";
   }
