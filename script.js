@@ -32,7 +32,30 @@ function renderTask(task) {
   list.appendChild(newItem);
 }
 
-function addInput(event) {
+function storeData() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+//filter tasks
+function filter(status) {
+  for (const task of tasks) {
+    const listElement = document.querySelector(`#task${task.id}`);
+    if (task.done === status) {
+      listElement.parentNode.style.display = "none";
+    } else {
+      listElement.parentNode.style.display = "";
+    }
+  }
+}
+radioOpen.addEventListener("click", function () {
+  filter(true);
+});
+radioDone.addEventListener("click", function () {
+  filter(false);
+});
+
+// Add tasks
+btnAdd.addEventListener("click", function (event) {
   event.preventDefault();
 
   if (
@@ -56,37 +79,25 @@ function addInput(event) {
     storeData();
   }
   input.value = "";
-}
+});
 
-function toggleDone(event) {
+// Toggle done = true/false
+list.addEventListener("change", function (event) {
   const checkbox = event.target.taskObject;
   checkbox.done = !checkbox.done;
   storeData();
-}
+});
 
-function storeData() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-function filter(status) {
-  for (const task of tasks) {
-    const listElement = document.querySelector(`#task${task.id}`);
-    if (task.done === status) {
-      listElement.parentNode.style.display = "none";
-    } else {
-      listElement.parentNode.style.display = "";
-    }
-  }
-}
-
-function showAll() {
+// Show all tasks
+radioAll.addEventListener("click", function () {
   for (const task of tasks) {
     const listElement = document.querySelector(`#task${task.id}`);
     listElement.parentNode.style.display = "";
   }
-}
+});
 
-function removeTasks(event) {
+// Remove finished tasks
+btnRemove.addEventListener("click", function (event) {
   event.preventDefault();
 
   if (
@@ -104,15 +115,4 @@ function removeTasks(event) {
       }
     }
   }
-}
-
-btnAdd.addEventListener("click", addInput);
-list.addEventListener("change", toggleDone);
-radioAll.addEventListener("click", showAll);
-radioOpen.addEventListener("click", function () {
-  filter(true);
 });
-radioDone.addEventListener("click", function () {
-  filter(false);
-});
-btnRemove.addEventListener("click", removeTasks);
