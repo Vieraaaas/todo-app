@@ -15,19 +15,19 @@ if (storage !== null) {
 }
 
 for (const task of tasks) {
-  renderTask(task.description, task.id, task.done, task);
+  renderTask(task);
 }
 
-function renderTask(taskText, taskId, taskStatus, task) {
+function renderTask(task) {
   const newItem = document.createElement("li");
   const label = document.createElement("label");
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.id = "task" + taskId;
-  checkbox.checked = taskStatus;
+  checkbox.id = "task" + task.id;
+  checkbox.checked = task.done;
   checkbox.taskObject = task;
   label.htmlFor = checkbox.id;
-  label.innerText = taskText;
+  label.innerText = task.description;
   newItem.append(checkbox, label);
   list.appendChild(newItem);
 }
@@ -50,7 +50,7 @@ function addInput(event) {
       id: Date.now(),
       done: false,
     };
-    renderTask(newTask.description, newTask.id, newTask.done, newTask);
+    renderTask(newTask);
     tasks.push(newTask);
 
     storeData();
